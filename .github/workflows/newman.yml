@@ -18,28 +18,29 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
       - name: Lint OpenAPI contracts
-        run: npm run lint:contracts
+        run: npx @stoplight/spectral-cli lint contracts/*.yaml --fail-severity error
 
-      - name: Start Prism mock servers
+      - name: Start Access Gate and AI Vision mock servers
         run: |
-          nohup npm run mock:iot > prism-iot.log 2>&1 &
-          nohup npm run mock:vision > prism-vision.log 2>&1 &
+          npx prism mock contracts/access-gate.openapi.yaml -p 4010 --host 0.0.0.0 > prism-gate.log 2>&1 &
+          npx prism mock contracts/ai-vision.openapi.yaml -p 4011 --host 0.0.0.0 > prism-vision.log 2>&1 &
 
-      - name: Wait for mock servers
-        run: npx wait-on http://localhost:4010/health http://localhost:4011/health --timeout 30000
+      - name: Wait for mock servers to be ready
+        run: npx wait-on http://localhost:4010/access/logs/recent http://localhost:4011/health --timeout 30000
 
       - name: Run Newman contract tests
-        run: npm run test:mock
+        run: npx newman run postman/collections/FIT4110_lab03_access_gate.postman_collection.json -e postman/environments/FIT4110_lab03_mock.postman_environment.json --reporters cli,junit --reporter-junit-export reports/newman-report-mock.xml
 
       - name: Show Prism logs on failure
         if: failure()
         run: |
-          cat prism-iot.log || true
+          cat prism-gate.log || true
           cat prism-vision.log || true
 
       - name: Upload Newman reports
