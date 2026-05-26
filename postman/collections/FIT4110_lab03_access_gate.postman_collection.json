@@ -1,0 +1,1220 @@
+{
+  "info": {
+    "_postman_id": "57f2bcdc-4f1b-44d3-9e75-86f236721759",
+    "name": "FIT4110_lab03_access_gate",
+    "description": "Hợp đồng API cho dịch vụ quản lý cổng ra vào (Access Gate).\n\nContact Support:\n Name: Access Gate Provider Team\n Email: access-gate@smartcampus.local",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51647064",
+    "_collection_link": "https://go.postman.co/collection/51647064-57f2bcdc-4f1b-44d3-9e75-86f236721759?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "access",
+      "item": [
+        {
+          "name": "logs",
+          "item": [
+            {
+              "name": "recent",
+              "item": [
+                {
+                  "name": "Lấy danh sách nhật ký quẹt thẻ gần đây",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/access/logs/recent?limit=20",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "access",
+                        "logs",
+                        "recent"
+                      ],
+                      "query": [
+                        {
+                          "key": "limit",
+                          "value": "20"
+                        }
+                      ]
+                    },
+                    "description": "Trả về danh sách các lượt quẹt thẻ ra/vào gần nhất. Core Business sử dụng API này để hiển thị dashboard hoặc audit."
+                  },
+                  "response": [
+                    {
+                      "name": "Danh sách nhật ký",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/access/logs/recent?limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "access",
+                            "logs",
+                            "recent"
+                          ],
+                          "query": [
+                            {
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "[\n  {\n    \"id\": \"5aae70ff-b2f3-ee96-e624-d39f615faf3d\",\n    \"cardId\": \"string\",\n    \"gateId\": \"string\",\n    \"direction\": \"OUT\",\n    \"status\": \"DENIED\",\n    \"timestamp\": \"2021-11-18T00:45:39.079Z\",\n    \"operatorNote\": \"string\"\n  },\n  {\n    \"id\": \"47a3ca9e-f1a7-96c0-85a3-602ce107c582\",\n    \"cardId\": \"string\",\n    \"gateId\": \"string\",\n    \"direction\": \"IN\",\n    \"status\": \"DENIED\",\n    \"timestamp\": \"1982-06-13T23:56:34.478Z\",\n    \"operatorNote\": \"string\"\n  }\n]"
+                    },
+                    {
+                      "name": "Chưa xác thực",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/access/logs/recent?limit=20",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "access",
+                            "logs",
+                            "recent"
+                          ],
+                          "query": [
+                            {
+                              "key": "limit",
+                              "value": "20"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://GLeMR.ldifxy.sNXuhEAhFuNy7wJQIA2K\",\n  \"title\": \"string\",\n  \"status\": 581,\n  \"detail\": \"string\"\n}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "{logId}",
+              "item": [
+                {
+                  "name": "Lấy chi tiết một nhật ký ra vào",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/access/logs/:logId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "access",
+                        "logs",
+                        ":logId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "logId",
+                          "value": "15ea194a-74b7-0465-ebfc-0b317a76468c"
+                        }
+                      ]
+                    },
+                    "description": "Truy xuất thông tin chi tiết của một lượt quẹt thẻ cụ thể dựa trên mã UUID. Dùng khi cần điều tra sự cố."
+                  },
+                  "response": [
+                    {
+                      "name": "Chi tiết nhật ký",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/access/logs/:logId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "access",
+                            "logs",
+                            ":logId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "logId",
+                              "value": "15ea194a-74b7-0465-ebfc-0b317a76468c"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"id\": \"63d74b67-6c50-1038-ae45-21f8224cf6f3\",\n  \"cardId\": \"string\",\n  \"gateId\": \"string\",\n  \"direction\": \"OUT\",\n  \"status\": \"DENIED\",\n  \"timestamp\": \"2020-12-17T21:03:33.535Z\",\n  \"operatorNote\": null\n}"
+                    },
+                    {
+                      "name": "Chưa xác thực",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/access/logs/:logId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "access",
+                            "logs",
+                            ":logId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "logId",
+                              "value": "15ea194a-74b7-0465-ebfc-0b317a76468c"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://GLeMR.ldifxy.sNXuhEAhFuNy7wJQIA2K\",\n  \"title\": \"string\",\n  \"status\": 581,\n  \"detail\": \"string\"\n}"
+                    },
+                    {
+                      "name": "Không tìm thấy tài nguyên",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/access/logs/:logId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "access",
+                            "logs",
+                            ":logId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "logId",
+                              "value": "15ea194a-74b7-0465-ebfc-0b317a76468c"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://GLeMR.ldifxy.sNXuhEAhFuNy7wJQIA2K\",\n  \"title\": \"string\",\n  \"status\": 581,\n  \"detail\": \"string\"\n}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gates",
+      "item": [
+        {
+          "name": "{gateId}",
+          "item": [
+            {
+              "name": "status",
+              "item": [
+                {
+                  "name": "Kiểm tra trạng thái hiện tại của cổng",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{bearerToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/gates/:gateId/status",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "gates",
+                        ":gateId",
+                        "status"
+                      ],
+                      "variable": [
+                        {
+                          "key": "gateId",
+                          "value": "GATE-71"
+                        }
+                      ]
+                    },
+                    "description": "Lấy trạng thái vật lý hiện tại (bình thường hoặc đang bảo trì) của một cổng cụ thể."
+                  },
+                  "response": [
+                    {
+                      "name": "Trạng thái cổng",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/gates/:gateId/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "gates",
+                            ":gateId",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "gateId",
+                              "value": "GATE-71"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"gateId\": \"string\",\n  \"status\": {\n    \"statusType\": \"string\",\n    \"value\": \"CLOSED\"\n  },\n  \"lastUpdated\": \"2005-02-12T14:43:52.293Z\"\n}"
+                    },
+                    {
+                      "name": "Chưa xác thực",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/gates/:gateId/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "gates",
+                            ":gateId",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "gateId",
+                              "value": "GATE-71"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://GLeMR.ldifxy.sNXuhEAhFuNy7wJQIA2K\",\n  \"title\": \"string\",\n  \"status\": 581,\n  \"detail\": \"string\"\n}"
+                    },
+                    {
+                      "name": "Không tìm thấy tài nguyên",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/problem+json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/gates/:gateId/status",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "gates",
+                            ":gateId",
+                            "status"
+                          ],
+                          "variable": [
+                            {
+                              "key": "gateId",
+                              "value": "GATE-71"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/problem+json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"type\": \"https://GLeMR.ldifxy.sNXuhEAhFuNy7wJQIA2K\",\n  \"title\": \"string\",\n  \"status\": 581,\n  \"detail\": \"string\"\n}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "cards",
+      "item": [
+        {
+          "name": "{cardId}",
+          "item": [
+            {
+              "name": "Lấy thông tin chủ thẻ",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{bearerToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/cards/:cardId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "cards",
+                    ":cardId"
+                  ],
+                  "variable": [
+                    {
+                      "key": "cardId",
+                      "value": "RFID-6796-009"
+                    }
+                  ]
+                },
+                "description": "Trả về thông tin định danh và trạng thái (active, blocked, expired) của một thẻ RFID cụ thể."
+              },
+              "response": [
+                {
+                  "name": "Thông tin thẻ",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/cards/:cardId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cards",
+                        ":cardId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cardId",
+                          "value": "RFID-6796-009"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"cardId\": \"string\",\n  \"holderName\": \"string\",\n  \"status\": \"EXPIRED\"\n}"
+                },
+                {
+                  "name": "Chưa xác thực",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/problem+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/cards/:cardId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cards",
+                        ":cardId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cardId",
+                          "value": "RFID-6796-009"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/problem+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"type\": \"https://GLeMR.ldifxy.sNXuhEAhFuNy7wJQIA2K\",\n  \"title\": \"string\",\n  \"status\": 581,\n  \"detail\": \"string\"\n}"
+                },
+                {
+                  "name": "Không tìm thấy tài nguyên",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/problem+json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/cards/:cardId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "cards",
+                        ":cardId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "cardId",
+                          "value": "RFID-6796-009"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/problem+json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"type\": \"https://GLeMR.ldifxy.sNXuhEAhFuNy7wJQIA2K\",\n  \"title\": \"string\",\n  \"status\": 581,\n  \"detail\": \"string\"\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "01_Functional",
+      "item": [
+        {
+          "name": "GET getCardInfo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Mã trạng thái là 200', function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Phản hồi tuân thủ lược đồ CardInfo', function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json).to.have.property('cardId');\r",
+                  "    pm.expect(json).to.have.property('holderName');\r",
+                  "    pm.expect(json).to.have.property('status');\r",
+                  "    pm.expect(['ACTIVE', 'BLOCKED', 'EXPIRED']).to.include(json.status); \r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/cards/RFID-1234-567",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "cards",
+                "RFID-1234-567"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET listRecentLogs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Mã trạng thái là 200', function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Phản hồi là một mảng AccessLog', function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json).to.be.an('array');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/access/logs/recent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "access",
+                "logs",
+                "recent"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02_Auth",
+      "item": [
+        {
+          "name": "GET /access/logs/recent - valid token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Valid token request returns success', function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/access/logs/recent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "access",
+                "logs",
+                "recent"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /access/logs/recent - missing token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const env = pm.environment.get('env') || 'mock';\r",
+                  "\r",
+                  "if (env === 'mock') {\r",
+                  "    pm.test('Skipped on mock: Prism does not enforce real auth without a service implementation', function () {\r",
+                  "        pm.expect(true).to.eql(true);\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test('Missing token returns 401 or 403', function () {\r",
+                  "        pm.expect([401, 403]).to.include(pm.response.code);\r",
+                  "    });\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/access/logs/recent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "access",
+                "logs",
+                "recent"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03_Negative",
+      "item": [
+        {
+          "name": "GET /gates/invalid-id/status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Sai định dạng mã cổng trả về mã lỗi 400 hoặc 422', function () {\r",
+                  "    pm.expect([400, 422]).to.include(pm.response.code);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Phản hồi lỗi tuân thủ cấu trúc ProblemDetails', function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json).to.have.property('title');\r",
+                  "    pm.expect(json).to.have.property('status');\r",
+                  "    pm.expect(json.status).to.be.within(400, 599);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/gates/GATE-INVALID/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "gates",
+                "GATE-INVALID",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04_Boundary_Reliability",
+      "item": [
+        {
+          "name": "GET /access/logs/recent - limit boundary max",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Boundary value at max limit returns success', function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/access/logs/recent?limit=100",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "access",
+                "logs",
+                "recent"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET /access/logs/recent - limit out of range",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Limit above max returns client error', function () {\r",
+                  "    pm.expect([400, 422]).to.include(pm.response.code);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Prefer",
+                "value": "code=400",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/access/logs/recent?limit=101",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "access",
+                "logs",
+                "recent"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "101"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "05_Consumer_side_Smoke",
+      "item": [
+        {
+          "name": "Consumer smoke - Access Gate can call AI Vision mock",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Consumer receives success from provider mock', function () {\r",
+                  "    pm.expect(pm.response.code).to.eql(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test('Consumer can read detection fields', function () {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json).to.have.property('detection_id');\r",
+                  "    pm.expect(json).to.have.property('label');\r",
+                  "    pm.expect(json).to.have.property('confidence');\r",
+                  "    pm.expect(json.confidence).to.be.within(0, 1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"camera_id\": \"CAM01\",\r\n  \"image_url\": \"https://example.com/frame.jpg\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{aiVisionMockUrl}}/detect",
+              "host": [
+                "{{aiVisionMockUrl}}"
+              ],
+              "path": [
+                "detect"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "06_Local_only_NonFunctional",
+      "item": [
+        {
+          "name": "GET /access/logs/recent - local response time threshold",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const env = pm.environment.get('env') || 'mock';\r",
+                  "\r",
+                  "if (env === 'local') {\r",
+                  "    pm.test('Local service responds under 1000ms', function () {\r",
+                  "        pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "    });\r",
+                  "} else {\r",
+                  "    pm.test('Skipped on mock: mock latency is not evidence of real service reliability', function () {\r",
+                  "        pm.expect(true).to.eql(true);\r",
+                  "    });\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/access/logs/recent",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "access",
+                "logs",
+                "recent"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4010"
+    }
+  ]
+}

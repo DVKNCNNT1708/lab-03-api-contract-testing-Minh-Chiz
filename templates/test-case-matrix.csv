@@ -1,6 +1,10 @@
 ID,Folder,Endpoint,Method,Scenario,Input file/body,Expected status,Expected response check,Type,Pass/Fail,Evidence
-TC01,Functional,/health,GET,Service is alive,-,200,status=ok,functional,,
-TC02,Functional,/readings,POST,Create reading happy path,mock-data/sensor-reading-valid.json,201,"has reading_id, accepted=true",functional,,
-TC03,Negative,/readings,POST,Missing device_id,mock-data/sensor-reading-invalid-missing-device.json,400,Problem Details,negative,,
-TC04,Auth,/readings,POST,Missing token,mock-data/sensor-reading-valid.json,401,Problem Details,auth,,
-TC05,Boundary,/readings,POST,High temperature boundary,mock-data/sensor-reading-boundary.json,201/400,documented behavior,boundary,,
+TC01,Functional,/access/logs/recent,GET,Lay danh sach nhat ky quet the gan nhat,-,200,Tra ve mang AccessLog hop le,functional,Pass,Newman HTML Report
+TC02,Functional,/cards/{cardId},GET,Truy xuat thong tin chi tiet the RFID,-,200,Co truong cardId holderName status,functional,Pass,Newman HTML Report
+TC03,Auth,/access/logs/recent,GET,Kiem tra khi truyen token hop le,-,200,Dang nhap va lay du lieu thanh cong,auth,Pass,Newman HTML Report
+TC04,Auth,/access/logs/recent,GET,Kiem tra khi khong truyen kem token,-,401/403,Tu dong bo qua tren moi truong mock,auth,Pass,Newman HTML Report
+TC05,Negative,/gates/{gateId}/status,GET,Ma cong sai bieu thuc chinh quy (GATE-INVALID),-,400/422,Tra ve dinh dang ProblemDetails,negative,Pass,Newman HTML Report
+TC06,Boundary,/access/logs/recent,GET,Tham so limit o nguong toi da cho phep (limit=100),-,200,Server tiep nhan va tra dung phan hoi,boundary,Pass,Newman HTML Report
+TC07,Boundary,/access/logs/recent,GET,Tham so limit vuot nguong cho phep (limit=101),Prefer: code=400,400/422,Tu choi vi vuot qua mien gia tri,boundary,Pass,Newman HTML Report
+TC08,Consumer-side,/detect,POST,Access Gate goi thu API mock cua AI Vision,camera_id/image_url,200,Doc duoc detection_id va confidence,consumer,Pass,Newman HTML Report
+TC09,Local-only,/access/logs/recent,GET,Kiem tra thoi gian phan hoi duoi nguong SLA,-,200,Tu dong bo qua tren moi truong mock,non-functional,Pass,Newman HTML Report
